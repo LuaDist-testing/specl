@@ -21,7 +21,8 @@
 ## Environment. ##
 ## ------------ ##
 
-LUA_PATH ?= ;
+LUA_PATH  ?= ;
+LUA_CPATH ?= ;
 
 
 ## ---------- ##
@@ -30,12 +31,15 @@ LUA_PATH ?= ;
 
 ACLOCAL_AMFLAGS = -I m4
 
+AM_CPPFLAGS = $(LUA_INCLUDE)
+
 
 ## ------------- ##
 ## Declarations. ##
 ## ------------- ##
 
-EXTRA_DIST		= README.md
+EXTRA_DIST		=
+EXTRA_LTLIBRARIES	=
 CLEANFILES		=
 DISTCLEANFILES		=
 MAINTAINERCLEANFILES	=
@@ -43,12 +47,14 @@ NOTHING_ELSE		=
 
 bin_SCRIPTS		=
 check_local		=
+dist_bin_SCRIPTS	=
+dist_lua_DATA		=
 install_exec_hooks	=
+lib_LTLIBRARIES		=
 man_MANS		=
+save_release_files	=
 
 include local.mk
-include src/src.mk
-include specs/specs.mk
 include build-aux/rockspecs.mk
 
 
@@ -64,12 +70,3 @@ check-local: $(check_local)
 ## ------------- ##
 
 install-exec-hook: $(install_exec_hooks)
-
-
-## ------------- ##
-## Distribution. ##
-## ------------- ##
-
-EXTRA_DIST +=						\
-	README.md					\
-	$(NOTHING_ELSE)

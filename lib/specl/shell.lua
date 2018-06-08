@@ -23,7 +23,7 @@
 local matchers = require "specl.matchers"
 local util     = require "specl.util"
 
-local type = util.typeof
+local Object   = util.Object
 
 local function shell_quote (s)
   return "'" .. tostring (s):gsub ("'", "'\\''") .. "'"
@@ -31,12 +31,14 @@ end
 
 -- Massage a command description into a string suitable for executing
 -- by the shell.
-local Command = util.Object {"command";
+local Command = Object {
+  _type = "Command",
+
   _init = function (self, params)
     util.type_check ("Command",
-      {self, params}, {"command", {"string", "table"}})
+      {self, params}, {{"Command", "table"}, {"string", "table"}})
 
-    local kind = type (params)
+    local kind = Object.type (params)
     if kind == "string" then params = {params} end
 
     local cmd = table.concat (params, " ")
@@ -44,7 +46,7 @@ local Command = util.Object {"command";
 
     -- Flatten the command itstelf to a string.
     self.cmd = cmd
-    if type (cmd) == "table" then
+    if Object.type (cmd) == "table" then
       -- Subshell is required to make sure redirections are captured,
       -- and environment is already set in time for embedded references.
       self.cmd = table.concat (cmd, " ")
@@ -80,16 +82,16 @@ local Command = util.Object {"command";
 
 
 -- Description of a completed process.
-local Process = util.Object { "process";
+local Process = Object {
+  _type = "Process",
   _init = {"status", "output", "errout"},
-  __index = util.Object,
 }
 
 
 -- Run a command in a subprocess
 local function spawn (o)
-  util.type_check ("spawn", {o}, {{"string", "table", "command"}})
-  if type (o) ~= "command" then o = Command (o) end
+  util.type_check ("spawn", {o}, {{"string", "table", "Command"}})
+  if Object.type (o) ~= "Command" then o = Command (o) end
 
   -- Capture stdout and stderr to temporary files.
   local fout = os.tmpname ()
@@ -118,8 +120,8 @@ end
 -- Register some additional matchers for dealing with the results from
 -- a completed process in an expectation.
 do
-  local reformat, Matcher, matchers =
-        matchers.reformat, matchers.Matcher, matchers.matchers
+  local concat, reformat, Matcher, matchers =
+        matchers.concat, matchers.reformat, matchers.Matcher, matchers.matchers
 
   -- If a shell command fails to meet an expectation, show anything output
   -- to standard error along with the Specl failure message.
@@ -144,7 +146,7 @@ do
       return (actual.status == expect)
     end,
 
-    actual_type   = "process",
+    actual_type   = "Process",
 
     format_actual = function (process)
       local m = " " .. tostring (process.status)
@@ -158,8 +160,9 @@ do
       return " exit status " .. tostring (expect) .. ", "
     end,
 
-    format_any_of = function (alternatives)
-      return " an exit status of " .. util.concat (alternatives, util.QUOTED) .. ", "
+    format_alternatives = function (adaptor, alternatives)
+      return " an exit status of " ..
+             concat (alternatives, adaptor, util.QUOTED) .. ", "
     end,
   }
 
@@ -170,15 +173,15 @@ do
       return (actual.output == expect)
     end,
 
-    actual_type   = "process",
+    actual_type   = "Process",
     format_actual = process_errout,
 
     format_expect = function (expect)
       return " output:" .. reformat (expect)
     end,
 
-    format_any_of = function (alternatives)
-      return " output:" .. reformat (alternatives)
+    format_alternatives = function (adaptor, alternatives)
+      return " output:" .. reformat (alternatives, adaptor)
     end,
   }
 
@@ -189,15 +192,15 @@ do
       return (actual.errout == expect)
     end,
 
-    actual_type   = "process",
+    actual_type   = "Process",
     format_actual = reformat_err,
 
     format_expect = function (expect)
       return " error output:" .. reformat (expect)
     end,
 
-    format_any_of = function (alternatives)
-      return " error output:" .. reformat (alternatives)
+    format_alternatives = function (adaptor, alternatives)
+      return " error output:" .. reformat (alternatives, adaptor)
     end,
   }
 
@@ -208,15 +211,15 @@ do
       return (string.match (actual.output, pattern) ~= nil)
     end,
 
-    actual_type   = "process",
+    actual_type   = "Process",
     format_actual = process_errout,
 
     format_expect = function (expect)
       return " output matching:" .. reformat (expect)
     end,
 
-    format_any_of = function (alternatives)
-      return " output matching:" .. reformat (alternatives)
+    format_alternatives = function (adaptor, alternatives)
+      return " output matching:" .. reformat (alternatives, adaptor)
     end,
   }
 
@@ -227,15 +230,15 @@ do
       return (string.match (actual.errout, pattern) ~= nil)
     end,
 
-    actual_type   = "process",
+    actual_type   = "Process",
     format_actual = reformat_err,
 
     format_expect = function (expect)
       return " error output matching:" .. reformat (expect)
     end,
 
-    format_any_of = function (alternatives)
-      return " error output matching:" .. reformat (alternatives)
+    format_alternatives = function (adaptor, alternatives)
+      return " error output matching:" .. reformat (alternatives, adaptor)
     end,
   }
 
@@ -246,15 +249,15 @@ do
       return (string.match (actual.output, util.escape_pattern (expect)) ~= nil)
     end,
 
-    actual_type   = "process",
+    actual_type   = "Process",
     format_actual = process_errout,
 
     format_expect = function (expect)
       return " output containing:" .. reformat (expect)
     end,
 
-    format_any_of = function (alternatives)
-      return " output containing:" .. reformat (alternatives)
+    format_alternatives = function (adaptor, alternatives)
+      return " output containing:" .. reformat (alternatives, adaptor)
     end,
   }
 
@@ -265,15 +268,15 @@ do
       return (string.match (actual.errout, util.escape_pattern (expect)) ~= nil)
     end,
 
-    actual_type   = "process",
+    actual_type   = "Process",
     format_actual = reformat_err,
 
     format_expect = function (expect)
       return " error output containing:" .. reformat (expect)
     end,
 
-    format_any_of = function (alternatives)
-      return " error output containing:" .. reformat (alternatives)
+    format_alternatives = function (adaptor, alternatives)
+      return " error output containing:" .. reformat (alternatives, adaptor)
     end,
   }
 end

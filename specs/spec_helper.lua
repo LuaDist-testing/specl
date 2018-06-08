@@ -1,8 +1,10 @@
 local hell = require "specl.shell"
 local util = require "specl.util"
 
+local Object = util.Object
+
 function run_spec (params)
-  local SPECL = "bin/specl --color=no"
+  local SPECL = "specs/specl --color=no"
 
   -- If params is a string, it is the input text for the subprocess.
   if type (params) == "string" then
@@ -41,15 +43,15 @@ do
   -- Matches if the type of <actual> is <expect>.
   matchers.instantiate_a = Matcher {
     function (actual, expect)
-      return (util.typeof (actual) == expect)
+      return (Object.type (actual) == expect)
     end,
 
     format_actual = function (actual)
-      return "a " .. util.typeof (actual)
+      return " a " .. Object.type (actual)
     end,
 
     format_expect = function (expect)
-      return "a " .. expect
+      return " a " .. expect .. ", "
     end,
   }
 end
