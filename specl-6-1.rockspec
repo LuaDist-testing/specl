@@ -1,7 +1,7 @@
 -- This file was automatically generated for the LuaDist project.
 
 package = "specl"
-version = "5-1"
+version = "6-1"
 description = {
   homepage = "http://gvvaughan.github.io/specl",
   license = "GPLv3+",
@@ -10,13 +10,13 @@ description = {
 }
 -- LuaDist source
 source = {
-  tag = "5-1",
+  tag = "6-1",
   url = "git://github.com/LuaDist-testing/specl.git"
 }
 -- Original source
 -- source = {
---   url = "http://github.com/gvvaughan/specl/archive/release-v5.zip",
---   dir = "specl-release-v5",
+--   url = "http://github.com/gvvaughan/specl/archive/release-v6.zip",
+--   dir = "specl-release-v6",
 -- }
 dependencies = {
   "ansicolors",
