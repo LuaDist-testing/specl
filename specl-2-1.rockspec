@@ -1,15 +1,7 @@
--- This file was automatically generated for the LuaDist project.
-
--- LuaDist source
 source = {
-  tag = "2-1",
-  url = "git://github.com/LuaDist-testing/specl.git"
+  dir = "specl-release-v2",
+  url = "http://github.com/gvvaughan/specl/archive/release-v2.zip",
 }
--- Original source
--- source = {
---   dir = "specl-release-v2",
---   url = "http://github.com/gvvaughan/specl/archive/release-v2.zip",
--- }
 version = "2-1"
 external_dependencies = {
   YAML = {
