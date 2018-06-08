@@ -1,3 +1,5 @@
+-- This file was automatically generated for the LuaDist project.
+
 local _MODREV, _SPECREV = '14.1.6', '-2'
 
 package = 'specl'
@@ -10,10 +12,16 @@ description = {
   license = 'GPLv3+',
 }
 
+-- LuaDist source
 source = {
-  url = 'http://github.com/gvvaughan/specl/archive/release-v' .. _MODREV .. '.zip',
-  dir = 'specl-release-v' .. _MODREV,
+  tag = "14.1.6-2",
+  url = "git://github.com/LuaDist-testing/specl.git"
 }
+-- Original source
+-- source = {
+--   url = 'http://github.com/gvvaughan/specl/archive/release-v' .. _MODREV .. '.zip',
+--   dir = 'specl-release-v' .. _MODREV,
+-- }
 
 dependencies = {
   'luamacro >= 2.0',
