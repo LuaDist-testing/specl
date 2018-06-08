@@ -1,3 +1,5 @@
+-- This file was automatically generated for the LuaDist project.
+
 package = "specl"
 version = "14.1.4-2"
 description = {
@@ -6,10 +8,16 @@ description = {
   license = "GPLv3+",
   summary = "Behaviour Driven Development for Lua",
 }
+-- LuaDist source
 source = {
-  dir = "specl-release-v14.1.4",
-  url = "http://github.com/gvvaughan/specl/archive/release-v14.1.4.zip",
+  tag = "14.1.4-2",
+  url = "git://github.com/LuaDist-testing/specl.git"
 }
+-- Original source
+-- source = {
+--   dir = "specl-release-v14.1.4",
+--   url = "http://github.com/gvvaughan/specl/archive/release-v14.1.4.zip",
+-- }
 dependencies = {
   "luamacro >= 2.0",
   "lua >= 5.1, < 5.4",
