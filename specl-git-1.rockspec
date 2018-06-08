@@ -1,17 +1,13 @@
+version = "git-1"
 source = {
   dir = "specl-release-vgit",
   url = "http://github.com/gvvaughan/specl/archive/release-vgit.zip",
 }
-version = "git-1"
-external_dependencies = {
-  YAML = {
-    library = "yaml",
-  },
-}
 package = "specl"
 dependencies = {
+  "ansicolors",
   "lua >= 5.1",
-  "stdlib >= 33",
+  "lyaml",
 }
 description = {
   homepage = "http://github.com/gvvaughan/specl/",
@@ -21,7 +17,7 @@ description = {
      ",
 }
 build = {
-  build_command = "./bootstrap && LUA=$(LUA) LUA_INCLUDE=-I$(LUA_INCDIR) ./configure CPPFLAGS=-I$(YAML_INCDIR) LDFLAGS='-L$(YAML_LIBDIR)' --prefix=$(PREFIX) --libdir=$(LIBDIR) --datadir=$(LUADIR) && make clean && make",
+  build_command = "./bootstrap && LUA=$(LUA) LUA_INCLUDE=-I$(LUA_INCDIR) ./configure --prefix=$(PREFIX) --libdir=$(LIBDIR) --datadir=$(LUADIR) && make clean && make",
   type = "command",
   copy_directories = {
   },
