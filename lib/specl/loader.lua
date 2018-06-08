@@ -307,14 +307,14 @@ local parser_mt = {
 
 
 -- Parser object constructor.
-local function Parser (filename, s, unicode)
+local function Parser (filename, s, opts)
   local dir  = dirname (filename)
 
   -- Add this spec-file directory to the macro-expanded spec_path list.
   spec_path = normalize (catfile (dir, path_mark .. ".lua"), spec_path)
 
   local object = {
-    unicode  = unicode,
+    unicode  = opts.unicode,
     anchors  = {},
     input    = s,
     mark     = { line = 0, column = 0 },
@@ -343,9 +343,9 @@ local function Parser (filename, s, unicode)
 end
 
 
-local function load (filename, s, unicode)
+local function load (filename, s, opts)
   local documents = {}
-  local parser    = Parser (filename, s, unicode)
+  local parser    = Parser (filename, s, opts)
 
   if parser:parse () ~= "STREAM_START" then
     return parser:error ("expecting STREAM_START event, but got " ..

@@ -2,7 +2,7 @@
 -- lib/specl/version.lua.  Generated from version.lua.in by configure.
 -- Written by Gary V. Vaughan, 2014
 --
--- Copyright (c) 2014-2016 Gary V. Vaughan
+-- Copyright (c) 2014-2017 Gary V. Vaughan
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -22,12 +22,12 @@ return {
   PACKAGE           = "specl",
   PACKAGE_NAME      = "Specl",
   PACKAGE_BUGREPORT = "http://github.com/gvvaughan/specl/issues",
-  VERSION           = "14.1.4",
+  VERSION           = "14.1.6",
   optspec           = [[
-specl (Specl) 14.1.4
+specl (Specl) 14.1.6
 Written by Gary V. Vaughan <gary@gnu.org>, 2013
 
-Copyright (C) 2016, Gary V. Vaughan
+Copyright (C) 2017, Gary V. Vaughan
 Specl comes with ABSOLUTELY NO WARRANTY.
 You may redistribute copies of Specl under the terms of the GNU
 General Public License; either version 3, or any later version.
@@ -49,6 +49,7 @@ Where '-' is given as a FILE, then read from standard input.
       --help             print this help, then exit
       --version          print version number, then exit
       --color=WHEN       request colorized formatter output [default=yes]
+      --coverage         generate coverage report, if luacov is installed
   -1, --fail-fast        exit immediately on first failed example
   -f, --formatter=FILE   use a specific formatter [default=progress]
       --unicode          allow unicode in spec files
