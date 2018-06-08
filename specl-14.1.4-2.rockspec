@@ -1,28 +1,21 @@
--- This file was automatically generated for the LuaDist project.
-
 package = "specl"
-version = "14.1.3-1"
+version = "14.1.4-2"
 description = {
   detailed = "Develop and run BDD specs written in Lua for RSpec style workflow.",
   homepage = "http://gvvaughan.github.io/specl",
   license = "GPLv3+",
   summary = "Behaviour Driven Development for Lua",
 }
--- LuaDist source
 source = {
-  tag = "14.1.3-1",
-  url = "git://github.com/LuaDist-testing/specl.git"
+  dir = "specl-release-v14.1.4",
+  url = "http://github.com/gvvaughan/specl/archive/release-v14.1.4.zip",
 }
--- Original source
--- source = {
---   dir = "specl-release-v14.1.3",
---   url = "http://github.com/gvvaughan/specl/archive/release-v14.1.3.zip",
--- }
 dependencies = {
   "luamacro >= 2.0",
   "lua >= 5.1, < 5.4",
   "lyaml >= 5",
-  "stdlib >= 41",
+  "optparse",
+  "stdlib == 41.2.0",
 }
 external_dependencies = nil
 build = {
