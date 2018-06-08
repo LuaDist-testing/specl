@@ -1,15 +1,15 @@
 -- This file was automatically generated for the LuaDist project.
 
-version = "3-1"
+version = "4-1"
 -- LuaDist source
 source = {
-  tag = "3-1",
+  tag = "4-1",
   url = "git://github.com/LuaDist-testing/specl.git"
 }
 -- Original source
 -- source = {
---   dir = "specl-release-v3",
---   url = "http://github.com/gvvaughan/specl/archive/release-v3.zip",
+--   dir = "specl-release-v4",
+--   url = "http://github.com/gvvaughan/specl/archive/release-v4.zip",
 -- }
 package = "specl"
 dependencies = {
@@ -25,7 +25,7 @@ description = {
      ",
 }
 build = {
-  build_command = "LUA=$(LUA) LUA_INCLUDE=-I$(LUA_INCDIR) ./configure --prefix=$(PREFIX) --libdir=$(LIBDIR) --datadir=$(LUADIR) && make clean && make",
+  build_command = "LUA_INCLUDE=-I$(LUA_INCDIR) ./configure LUA=$(LUA) --prefix=$(PREFIX) --libdir=$(LIBDIR) --datadir=$(LUADIR) && make clean && make",
   type = "command",
   copy_directories = {
   },
